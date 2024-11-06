@@ -16,16 +16,17 @@ const CreateItem = () => {
     const loginUserEmail = useAuth()
     console.log(loginUserEmail)
     const handleChange = (e) => {
-        setNewItem({
-            ...newItem,
-            [e.target.name]: e.target.value,
-        })
-    }
-    const handleImageChange = (e) => {
-        setNewItem({
-            ...newItem,
-            image: e.target.value,
-        })
+        if (e.target.name === "image") {
+            setNewItem({
+                ...newItem,
+                [e.target.name]: image,
+            })
+        } else {
+            setNewItem({
+                ...newItem,
+                [e.target.name]: e.target.value,
+            })
+        }
     }
     
     const handleSubmit = async(e) => {
@@ -55,10 +56,11 @@ const CreateItem = () => {
         return (
             <div>
                 <h1 className="page-title">アイテム作成</h1>
+                <ImgInput setImage={setImage}/>
                 <form onSubmit={handleSubmit}>
                     <input value={newItem.title} onChange={handleChange} type="text" name="title" placeholder="アイテム名" required />
                     <input value={newItem.price} onChange={handleChange} type="text" name="price" placeholder="価格" required />
-                    <ImgInput setImage={setImage} onChange={handleImageChange} />
+                    <input value={newItem.image} onChange={handleChange} type="text" name="image" placeholder="画像" required />
                     <textarea value={newItem.description} onChange={handleChange} type="text" name="description" rows={15} placeholder="商品説明" required></textarea>
                     <button>作成</button>
                 </form>

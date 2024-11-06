@@ -25,3 +25,4 @@
 - [React](https://ja.react.dev/)
 - [MongoDB](https://cloud.mongodb.com/)
 - [JSON Web Token](https://jwt.io/)
+- [Cloudinary](https://cloudinary.com/)
