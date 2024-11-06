@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import useAuth from "../../utils/useAuth"
+import useAuth from "../../../utils/useAuth"
 
 const DeleteItem = (context) => {
     const [selectedItem, setSelectedItem] = useState({
