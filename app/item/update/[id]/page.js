@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import useAuth from "../../../utils/useAuth"
 
 const UpdateItem = (context) => {
     const [selectedItem, setSelectedItem] = useState({
@@ -11,6 +12,7 @@ const UpdateItem = (context) => {
         email: ""
     })
     const router = useRouter()
+    const loginUserEmail = useAuth()
     useEffect(() => {
         const getSingleItem = async(id) => {
             const response = await fetch(`http://localhost:3000/api/item/readsingle/${id}`, {cache: "no-store"})
@@ -44,7 +46,7 @@ const UpdateItem = (context) => {
                 },
                 body: JSON.stringify({
                     ...selectedItem,
-                    email: "ダミーデータ"
+                    email: loginUserEmail
                 })
             })
             const jsonData = await response.json()
@@ -55,18 +57,22 @@ const UpdateItem = (context) => {
             alert("アイテム作成失敗")
         }
     }
-    return (
-        <div>
-            <h1>アイテム編集</h1>
-            <form onSubmit={handleSubmit}>
-                <input value={selectedItem.title} onChange={handleChange} type="text" name="title" placeholder="アイテム名" required />
-                <input value={selectedItem.price} onChange={handleChange} type="text" name="price" placeholder="価格" required />
-                <input value={selectedItem.image} onChange={handleChange} type="text" name="image" placeholder="画像" required />
-                <textarea value={selectedItem.description} onChange={handleChange} type="text" name="description" rows={15} placeholder="商品説明" required></textarea>
-                <button>編集</button>
-            </form>
-        </div>
-    )
+    if (loginUserEmail === selectedItem.email) {
+        return (
+            <div>
+                <h1 className="page-title">アイテム編集</h1>
+                <form onSubmit={handleSubmit}>
+                    <input value={selectedItem.title} onChange={handleChange} type="text" name="title" placeholder="アイテム名" required />
+                    <input value={selectedItem.price} onChange={handleChange} type="text" name="price" placeholder="価格" required />
+                    <input value={selectedItem.image} onChange={handleChange} type="text" name="image" placeholder="画像" required />
+                    <textarea value={selectedItem.description} onChange={handleChange} type="text" name="description" rows={15} placeholder="商品説明" required></textarea>
+                    <button>編集</button>
+                </form>
+            </div>
+        )
+    } else {
+        return <h1>権限がありません</h1>
+    }
 }
 
 export default UpdateItem

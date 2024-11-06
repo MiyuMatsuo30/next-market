@@ -28,7 +28,7 @@ const Register = () => {
     }
     return (
         <div>
-            <h1>ユーザー登録</h1>
+            <h1 className="page-title">ユーザー登録</h1>
             <form action="http://localhost:3000/api/user/register" method="POST" onSubmit={handleSubmit}>
                 <input value={name} onChange={(e) => setName(e.target.value)} type="text" name="name" placeholder="名前" required/>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="email" placeholder="メールアドレス" required/>
