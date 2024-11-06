@@ -10,10 +10,7 @@ const ImgInput = (props) => {
             data.append("cloud_name", "dwzvys7xi")
             const response = await fetch("https://api.cloudinary.com/v1_1/dwzvys7xi/image/upload",{method: POST, body: data})
             const jsonData = await response.json()
-            await props.setNewItem({
-                ...newItem,
-                image: jsonData.url,
-            })
+            await props.setImage(jsonData.url)
             alert("画像アップロード成功")
         } catch {
             alert("画像アップロード失敗")
