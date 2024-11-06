@@ -7,7 +7,7 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
-            const response = await fetch("http://localhost:3000/api/user/login", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user/login`, {
                 method: "POST",
                 headers: {
                     "Accept": "apprication/json",
