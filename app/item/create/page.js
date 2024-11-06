@@ -5,10 +5,11 @@ import useAuth from "../../utils/useAuth"
 import ImgInput from "../../components/imgInput"
 
 const CreateItem = () => {
+    const [image, setImage] = useState("")
     const [newItem, setNewItem] = useState({
         title: "",
         price: "",
-        image: "",
+        image: image,
         description: "",
     })
     const router = useRouter()
@@ -18,6 +19,12 @@ const CreateItem = () => {
         setNewItem({
             ...newItem,
             [e.target.name]: e.target.value,
+        })
+    }
+    const handleImageChange = (e) => {
+        setNewItem({
+            ...newItem,
+            image: e.target.value,
         })
     }
     
@@ -51,7 +58,7 @@ const CreateItem = () => {
                 <form onSubmit={handleSubmit}>
                     <input value={newItem.title} onChange={handleChange} type="text" name="title" placeholder="アイテム名" required />
                     <input value={newItem.price} onChange={handleChange} type="text" name="price" placeholder="価格" required />
-                    <ImgInput setImage={setNewItem} />
+                    <ImgInput setImage={setImage} onChange={handleImageChange} />
                     <textarea value={newItem.description} onChange={handleChange} type="text" name="description" rows={15} placeholder="商品説明" required></textarea>
                     <button>作成</button>
                 </form>
